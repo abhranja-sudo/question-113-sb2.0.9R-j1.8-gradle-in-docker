@@ -47,7 +47,7 @@ public class QuizService {
     }
 
     public Question getQuestionById(Long id){
-        return questionRepository.findById(id).orElseThrow(() -> new BadRequestException());
+        return questionRepository.findById(id).orElseThrow(() -> new QuizException());
     }
 
     public QuizAllResponse getAllQuestionFromQuiz(Long id){
