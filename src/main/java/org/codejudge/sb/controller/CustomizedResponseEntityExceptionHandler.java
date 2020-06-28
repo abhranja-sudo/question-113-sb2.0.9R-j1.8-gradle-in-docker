@@ -14,12 +14,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-    static int count = 0;
 
     @ExceptionHandler({BadRequestException.class})
-    public final ResponseEntity<CustomizedExceptionResponse> handleNotFoundException(BadRequestException ex, WebRequest request) {
-        System.out.println("asd"+count++);
-        CustomizedExceptionResponse customizedExceptionResponse = new CustomizedExceptionResponse("failure","Reason yet to be ascertained");
+    public final ResponseEntity<CustomizedExceptionResponse> handleNotFoundException
+            (BadRequestException ex, WebRequest request) {
+        CustomizedExceptionResponse customizedExceptionResponse = new
+                CustomizedExceptionResponse("failure","Reason yet to be ascertained");
         return new ResponseEntity<CustomizedExceptionResponse>(customizedExceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }

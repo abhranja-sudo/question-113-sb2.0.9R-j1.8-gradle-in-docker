@@ -31,7 +31,7 @@ public class AppController {
     }
 
     @PostMapping("/api/quiz")
-    public ResponseEntity<?> createQuiz(@Valid @RequestBody QuizRequest quizRequest, Errors errors) throws Exception{
+    public ResponseEntity<?> createQuiz(@Valid @RequestBody QuizRequest quizRequest, Errors errors) throws BadRequestException{
         if(errors.hasErrors()) {
             throw new BadRequestException();
         }
@@ -48,8 +48,10 @@ public class AppController {
 
     @PostMapping("/api/questions")
     public ResponseEntity<?> addQuestion(@Valid @RequestBody QuestionRequest questionRequest, Errors errors)
-            throws Exception{
-        if(errors.hasErrors())  throw new BadRequestException();
+            throws BadRequestException{
+        if(errors.hasErrors()) {
+            throw new BadRequestException();
+        }
         Question question = quizService.createQuestion(questionRequest);
         return new ResponseEntity<>(question, HttpStatus.CREATED);
     }
