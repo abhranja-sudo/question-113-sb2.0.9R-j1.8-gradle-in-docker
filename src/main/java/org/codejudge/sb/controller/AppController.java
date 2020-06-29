@@ -26,12 +26,12 @@ public class AppController {
     @GetMapping("/api/quiz/{quizId}")
     public QuizResponse getQuiz(@PathVariable Long quizId) {
         Quiz quiz =  quizService.getQuizById(quizId);
-        QuizResponse quizResponse = new QuizResponse(quiz.getId(),quiz.getName(),quiz.getDescription());
-        return quizResponse;
+        return new QuizResponse(quiz.getId(),quiz.getName(),quiz.getDescription());
     }
 
     @PostMapping("/api/quiz")
-    public ResponseEntity<?> createQuiz(@Valid @RequestBody QuizRequest quizRequest, Errors errors) throws BadRequestException{
+    public ResponseEntity<?> createQuiz(@Valid @RequestBody QuizRequest quizRequest, Errors errors)
+            throws BadRequestException{
         if(errors.hasErrors()) {
             throw new BadRequestException();
         }
@@ -58,8 +58,7 @@ public class AppController {
 
     @GetMapping("/api/questions/{questionId}")
     public Question getQuestion(@PathVariable Long questionId){
-        Question question = quizService.getQuestionById(questionId);
-        return question;
+        return quizService.getQuestionById(questionId);
     }
 
     @GetMapping("/api/quiz-questions/{quiz_id}")
